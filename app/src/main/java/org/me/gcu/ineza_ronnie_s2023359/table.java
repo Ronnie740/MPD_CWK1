@@ -3,6 +3,7 @@ package org.me.gcu.ineza_ronnie_s2023359;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -446,6 +447,10 @@ public class table extends AppCompatActivity {
         TableRow filter2 = findViewById(R.id.filter2);
         TableRow filter3 = findViewById(R.id.filter3);
         TableRow filter4 = findViewById(R.id.filter4);
+        TableRow filter5 = findViewById(R.id.filter5);
+        TableRow filter6 = findViewById(R.id.filter6);
+        TableRow filter7 = findViewById(R.id.filter7);
+        TableRow filter8 = findViewById(R.id.filter8);
         // Clear the existing rows
         tableLayout.removeAllViews();
 
@@ -454,6 +459,12 @@ public class table extends AppCompatActivity {
         tableLayout.addView(filter2);
         tableLayout.addView(filter3);
         tableLayout.addView(filter4);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            tableLayout.addView(filter5);
+            tableLayout.addView(filter6);
+            tableLayout.addView(filter7);
+            tableLayout.addView(filter8);
+        }
         tableLayout.addView(header);
 
         // Add the sorted rows to the table layout

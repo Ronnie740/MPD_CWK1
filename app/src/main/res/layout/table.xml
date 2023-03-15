@@ -14,98 +14,6 @@
         android:stretchColumns="*"
         android:layout_margin="10dp">
 
-        <!--<TableRow
-            android:background="@color/purple_200">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Location"
-                android:textAlignment="center"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Magnitude"
-                android:textAlignment="center"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Depth"
-                android:textAlignment="center"/>-->
-
-        <!--<TextView
-            android:id="@+id/textView2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Longitude"
-            android:textAlignment="center"/>
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Latitude"
-            android:textAlignment="center"/>-->
-
-        <!--<TextView
-            android:id="@+id/textView4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Date"
-            android:textAlignment="center"/>
-
-    </TableRow>-->
-        <!--<TableRow>
-
-            <TextView
-                android:id="@+id/location"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="" />
-
-            <TextView
-                android:id="@+id/magnitude"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="" />
-
-            <TextView
-                android:id="@+id/depth"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="" />
-
-            <TextView
-                android:id="@+id/longitude"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text=""
-                android:textAlignment="center" />
-            <TextView
-                android:id="@+id/latitude"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text=""
-                android:textAlignment="center" />
-
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="" />
-
-        </TableRow>-->
-
         <!-- Filter row -->
         <TableRow
             android:layout_width="match_parent"
@@ -117,27 +25,34 @@
                 android:text="Filter By Location:"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"/>
+                android:layout_marginHorizontal="20dp"
+                android:textAlignment="center"/>
 
-
-
+        </TableRow>
+        <TableRow android:gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/filter2">
+                <Spinner
+                    android:id="@+id/location_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    />
+        </TableRow>
+        <TableRow
+            android:gravity="center_horizontal"
+            android:id="@+id/filter3">
             <TextView
                 android:text="Filter By Magnitude:"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
+                android:textAlignment="center"
                 />
         </TableRow>
         <TableRow android:gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/filter2">
-            <Spinner
-                android:id="@+id/location_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                />
+            android:id="@+id/filter4">
             <Spinner
                 android:id="@+id/magnitude_spinner"
                 android:layout_width="wrap_content"
@@ -145,14 +60,25 @@
                 android:layout_marginHorizontal="20dp"/>
         </TableRow>
         <TableRow android:gravity="center_horizontal"
-            android:id="@+id/filter3">
+            android:id="@+id/filter5">
             <TextView
                 android:text="Filter By Depth:"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:layout_marginHorizontal="20dp"/>
-
+        </TableRow>
+            <TableRow android:gravity="center_horizontal"
+                android:id="@+id/filter6">
+                <Spinner
+                    android:id="@+id/depth_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"/>
+            </TableRow>
+            <TableRow
+                android:gravity="center_horizontal"
+                android:id="@+id/filter7">
 
             <TextView
                 android:text="Filter By Date:"
@@ -162,15 +88,10 @@
                 android:layout_marginHorizontal="20dp"/>
 
 
-
         </TableRow>
-        <TableRow android:gravity="center_horizontal"
-            android:id="@+id/filter4">
-            <Spinner
-                android:id="@+id/depth_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"/>
+            <TableRow
+                android:gravity="center_horizontal"
+                android:id="@+id/filter8">
             <Button
                 android:id="@+id/date_button"
                 android:layout_width="wrap_content"

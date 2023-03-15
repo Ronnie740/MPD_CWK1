@@ -21,10 +21,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    //private TextView rawDataDisplay;
     private Button startButton, map;
     private String result = "";
-    // All aventas from National Highways UK
+    // Source of the earthquake data
     private String urlSource = "https://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
 
     private boolean isDownloading = false;
@@ -50,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             new DownloadXmlTask().execute(urlSource);
         }
 
+
     }
 
     /**public void startProgress() {
@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         Log.e("MyTag", "in onClick");
-        //startProgress();
         if (v.getId() == R.id.startButton) {
             Parser parser = new Parser();
             parser.parseData(result);
@@ -148,7 +147,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);**/
                 Parser parser = new Parser();
                 parser.parseData(result);
-                //rawDataDisplay.setText(result);
                 isDownloading = false;
             });
         }
