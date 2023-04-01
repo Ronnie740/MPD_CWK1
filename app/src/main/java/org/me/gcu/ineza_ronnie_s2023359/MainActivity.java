@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button startButton, map;
+    private Button startButton, chart, map;
     private String result = "";
     // Source of the earthquake data
     private String urlSource = "https://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
@@ -29,6 +30,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean isDownloading = false;
     private ProgressDialog progressDialog;
 
+    //handle the downloads and set them to 10 minute intervals while the activity is running
+    private Handler handler = new Handler();
+    private Runnable downloadRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (!isDownloading) {
+                isDownloading = true;
+                new DownloadXmlTask().execute(urlSource);
+                Log.i("Download", "New Download");
+            }
+            handler.postDelayed(downloadRunnable, 10 * 60 * 1000); // schedule the download to run again in 10 minutes
+        }
+    };
+    //--end
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +54,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(this);
         Log.e("MyTag", "after startButton");
+        chart = findViewById(R.id.chart);
+        chart.setOnClickListener(this);
         map = findViewById(R.id.map);
         map.setOnClickListener(this);
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage("Loading...");
         //startProgress();
-        if (!isDownloading) {
+        /**if (!isDownloading) {
             isDownloading = true;
             new DownloadXmlTask().execute(urlSource);
-        }
-
+        }**/
+        handler.postDelayed(downloadRunnable, 0);
 
     }
 
@@ -70,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("earthquakes", parser.getEarthquakeList());
             startActivity(intent);
         }
-        else if(v.getId() == R.id.map){
+        else if(v.getId() == R.id.chart){
             setContentView(R.layout.activity_chart);
 
             Parser parser = new Parser();
@@ -84,6 +101,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
 
         }
+        else if(v.getId() == R.id.map){
+                setContentView(R.layout.activity_map);
+                Parser parser = new Parser();
+                parser.parseData(result);
+                Log.d("<Map>", "Start ----------- ");
+                parser.printEarthquakes();
+                Log.d("<Map>", "END ----------- ");
+                Intent intent = new Intent(this, Map.class);
+                intent.putExtra("earthquakes", parser.getEarthquakeList());
+                startActivity(intent);
+            }
         Log.e("MyTag", "after startProgress");
     }
 
@@ -151,6 +179,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             });
         }
 
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("Stopped Downloads", "Download Runnable destroyed");
+        handler.removeCallbacks(downloadRunnable); // stop the download task when the activity is destroyed
     }
 
 }

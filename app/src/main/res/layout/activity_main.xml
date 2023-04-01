@@ -34,11 +34,21 @@
             android:maxHeight="69dp"/>
 
         <Button
-            android:id="@+id/map"
+            android:id="@+id/chart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="EarthQuake Chart"
+            android:minWidth="134dp"
+            android:maxWidth="144dp"
+            android:minHeight="69dp"
+            android:maxHeight="69dp"/>
+
+        <Button
+            android:id="@+id/map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Earthquake Map"
             android:minWidth="134dp"
             android:maxWidth="144dp"
             android:minHeight="69dp"
