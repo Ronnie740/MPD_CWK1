@@ -80,5 +80,17 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
             mapView.onDestroy();
         }
     }
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        // Create an intent to start the MainActivity
+        Intent intent = new Intent(this, MainActivity.class);
+        // Set the flag to clear the activity stack and start a new task
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        // Start the activity
+        startActivity(intent);
+        finish();
+
+    }
 
 }
