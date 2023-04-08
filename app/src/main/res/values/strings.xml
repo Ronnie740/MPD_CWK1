@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Ineza_Ronnie_S2023359</string>
+    <string name="map_desc">The Pins on the map below point to the location of each of the earthquake locations. When a pin is clicked an alert box will pop up showing details of the earthquake that was clicked.</string>
+    <string name="map_title">Earthquake Locations</string>
 </resources>
