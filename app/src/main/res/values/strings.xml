@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Ineza_Ronnie_S2023359</string>
-    <string name="map_desc">The Pins on the map below point to the location of each of the earthquake locations. When a pin is clicked an alert box will pop up showing details of the earthquake that was clicked.</string>
+    <string name="map_desc">The Pins on the map below point to the location of each of the earthquake locations. The map is scrollable and when a pin is clicked an alert box will pop up showing details of the earthquake that was clicked.</string>
     <string name="map_title">Earthquake Locations</string>
+    <string name="chart_title">Earthquake Distribution</string>
+    <string name="chart_desc">The chart showcases the distribution of the earthquakes based on depth and magnitude. The X axis is the magnitude and the Y axis is the depth of the earthquakes.</string>
+    <string name="dashboard_title">Earthquake Dashboard</string>
+    <string name="dashboard_desc">The dashboard below consists of filters that create a filtered table of earthquake data below it. After applying a filter click on select again and it will remove the filtered table. Click on magnitude and depth columns titles to apply an additional filter that arranges the table in either descending or ascending order. Finally Each of the rows are clickable and show additional earthquake information</string>
 </resources>
