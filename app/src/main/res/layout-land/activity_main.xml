@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent" android:layout_height="fill_parent">
@@ -33,7 +33,7 @@
             android:maxHeight="69dp"/>
 
         <Button
-            android:id="@+id/map"
+            android:id="@+id/chart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -42,6 +42,16 @@
             android:maxWidth="144dp"
             android:minHeight="69dp"
             android:maxHeight="69dp"/>
+        <Button
+            android:id="@+id/map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Earthquake Map"
+            android:minWidth="134dp"
+            android:maxWidth="144dp"
+            android:minHeight="69dp"
+            android:maxHeight="69dp"/>
+
 
     </LinearLayout>
-</ScrollView>
+</RelativeLayout>
