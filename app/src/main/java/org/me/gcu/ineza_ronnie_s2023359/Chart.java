@@ -20,6 +20,8 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Chart extends AppCompatActivity {
 
@@ -48,13 +50,12 @@ public class Chart extends AppCompatActivity {
         Log.d("arraySize", "Initial size of earthquakeData: " + earthquakeData.size());
         float maxMagnitude = 0f;
         float maxDepth = 0f;
-
+        int counter = 0;
         for (Earthquake earthquake : earthquakes) {
             float magnitude = (float) earthquake.getMagnitude();
             //Log.i("magnitude", "" + magnitude);
             float depth = Float.parseFloat(earthquake.getDepth());
             //Log.i("Depth", "" + depth);
-
             Entry entry = new Entry(magnitude, depth);
             earthquakeData.add(entry);
             Log.d("arraySize", "Size of earthquakeData after adding entry: " + earthquakeData.size());
@@ -64,8 +65,14 @@ public class Chart extends AppCompatActivity {
             if (depth > maxDepth) {
                 maxDepth = depth;
             }
+            /**counter ++;
+            if (counter == 5){
+                break;
+            }**/
         }
+        Log.i("Earthquake Data", ": "+ earthquakeData);
         // Set up the ScatterDataSet for the earthquake data
+        Collections.sort(earthquakeData, (e1, e2) -> Float.compare(e1.getY(), e2.getY()));
         ScatterDataSet dataSet = new ScatterDataSet(earthquakeData, "Earthquakes");
 
         // Set unique colors for each earthquake
@@ -76,7 +83,7 @@ public class Chart extends AppCompatActivity {
         dataSet.setColors(colors);
 
         // Create a legend for the chart
-        Legend legend = mScatterChart.getLegend();
+        /**Legend legend = mScatterChart.getLegend();
         legend.setFormSize(12f);
         legend.setForm(Legend.LegendForm.CIRCLE);
         legend.setOrientation(Legend.LegendOrientation.VERTICAL);
@@ -88,11 +95,11 @@ public class Chart extends AppCompatActivity {
         legend.setYOffset(0f);
 
         // Add legend entries for each earthquake
-        for (int i = 0; i < earthquakes.size(); i++) {
+        for (int i = 0; i < 5; i++) {
             legendEntries.add(new LegendEntry("Earthquake " + (i+1), Legend.LegendForm.CIRCLE, 12f, 12f, null, colors.get(i)));
         }
 
-        legend.setCustom(legendEntries);
+        legend.setCustom(legendEntries);**/
 
 
         dataSet.setScatterShape(ScatterChart.ScatterShape.CIRCLE);
@@ -110,18 +117,23 @@ public class Chart extends AppCompatActivity {
         mScatterChart.getXAxis().setGranularity(1f); // Set X axis granularity to 1f
         mScatterChart.getXAxis().setLabelCount( (int)maxMagnitude + 1); // Set X axis label count to maxMagnitude + 1
 
-        /**mScatterChart.getXAxis().setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                return String.valueOf((int) value);
-            }
-        });**/
         mScatterChart.getAxisLeft().setAxisMinimum(0f);
         mScatterChart.getAxisLeft().setAxisMaximum(maxDepth + 100f);
         mScatterChart.getAxisLeft().setLabelCount((int) maxDepth + 1);
 
         // Refresh the ScatterChart
-        mScatterChart.invalidate();
+        //mScatterChart.invalidate();
+    }
+    @Override
+    public void onBackPressed() {
+        // Create an intent to start the MainActivity
+        Intent intent = new Intent(this, MainActivity.class);
+        // Set the flag to clear the activity stack and start a new task
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        // Start the activity
+        startActivity(intent);
+        finish();
+
     }
 
 

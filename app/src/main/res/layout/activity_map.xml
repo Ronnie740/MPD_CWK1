@@ -30,12 +30,9 @@
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/map_view"
-            android:layout_width="371dp"
-            android:layout_height="416dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:liteMode="false" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:liteMode="false"
+            android:layout_marginTop="20dp"/>
     </LinearLayout>
 </RelativeLayout>

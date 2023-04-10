@@ -3,6 +3,8 @@ package org.me.gcu.ineza_ronnie_s2023359;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -80,6 +82,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
             mapView.onDestroy();
         }
     }
+
     @Override
     public void onBackPressed() {
         //super.onBackPressed();

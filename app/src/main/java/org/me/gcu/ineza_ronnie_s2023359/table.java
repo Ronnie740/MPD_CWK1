@@ -476,7 +476,7 @@ public class table extends AppCompatActivity {
                 // Show alert box with earthquake details
                 AlertDialog.Builder builder = new AlertDialog.Builder(table.this);
                 builder.setTitle("Earthquake Details")
-                        .setMessage("Magnitude: " + earthquake.getMagnitude() + "\nLocation: " + earthquake.getLocation() + "\nDate: " + earthquake.getDate()+"\nDirection: "+distance+"\nDistance from\nMauritius:"+x+" kms")
+                        .setMessage("Magnitude: " + earthquake.getMagnitude() + "\nLocation: " + earthquake.getLocation() + "\nDate: " + earthquake.getDate()+"\nDirection: "+distance+"\nDistance from \n Mauritius: "+x+"kms")
                         .setPositiveButton("OK", null)
                         .show();
             });
