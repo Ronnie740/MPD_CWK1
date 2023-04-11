@@ -2,23 +2,24 @@ package org.me.gcu.ineza_ronnie_s2023359;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -36,19 +37,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void run() {
             if (!isDownloading) {
-                isDownloading = true;
-                new DownloadXmlTask().execute(urlSource);
+                downloadXmlData(urlSource);
                 Log.i("Download", "New Download");
             }
             handler.postDelayed(downloadRunnable, 10 * 60 * 1000); // schedule the download to run again in 10 minutes
         }
     };
-    //--end
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Check if device is connected to the internet and notify the user
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        if (!isConnected) {
+            Toast.makeText(this, "No internet connection available\n Can't Download XML Data", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Connected to internet", Toast.LENGTH_SHORT).show();
+        }
+
 
         Log.e("MyTag", "in onCreate");
         startButton = findViewById(R.id.startButton);
@@ -60,21 +70,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         map.setOnClickListener(this);
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage("Loading...");
-        //startProgress();
-        /**if (!isDownloading) {
-            isDownloading = true;
-            new DownloadXmlTask().execute(urlSource);
-        }**/
         handler.postDelayed(downloadRunnable, 0);
 
     }
-
-    /**public void startProgress() {
-        if (!isDownloading) {
-            isDownloading = true;
-            new DownloadXmlTask().execute(urlSource);
-        }
-    }**/
 
     @Override
     public void onClick(View v) {
@@ -114,32 +112,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         Log.e("MyTag", "after startProgress");
     }
-
-    private class DownloadXmlTask extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... urls) {
-            URL aurl;
-            URLConnection yc;
-            BufferedReader in = null;
-            String inputLine = "";
-            Log.e("MyTag", "in run");
+    private void downloadXmlData(String url) {
+        if (isDownloading) {
+            return;
+        }
+        isDownloading = true;
+        progressDialog.show();
+        new Thread(() -> {
             try {
-                Log.e("MyTag", "in try");
-                aurl = new URL(urls[0]);
-                Log.e("MyTag", "URL: "+ aurl );
-                yc = aurl.openConnection();
-                in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-                Log.e("MyTag", "after ready");
-                //
-                // Now read the data. Make sure that there are no specific headers
-                // in the data file that you need to ignore.
-                // The useful data that you need is in each of the item entries
-                // original
-                /** while ((inputLine = in.readLine()) != null) {
-                 //    result = result + inputLine;
-                 //    Log.e("MyTag", inputLine);
-                 }**/
+                URL aurl = new URL(url);
+                URLConnection yc = aurl.openConnection();
+                BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
+                String inputLine;
                 int itemCounter = 0;
                 while ((inputLine = in.readLine()) != null) {
                     result = result + inputLine;
@@ -151,34 +135,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 }
-
                 in.close();
-            } catch (IOException ae) {
-                Log.e("MyTag", "ioexception in run");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            return result;
-        }
-        @Override
-        protected void onPreExecute() {
-            progressDialog.show();
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            progressDialog.dismiss();
-
-            MainActivity.this.runOnUiThread(() -> {
-                Log.d("UI thread", "I am the UI thread");
-
-                /**Intent i = new Intent(MainActivity.this, Parser.class);
-                i.putExtra("result", result); // pass the result as an intent extra
-                startActivity(i);**/
+            Log.i("Result", "Result: "+ result);
+            runOnUiThread(() -> {
+                progressDialog.dismiss();
                 Parser parser = new Parser();
                 parser.parseData(result);
                 isDownloading = false;
             });
-        }
-
+        }).start();
     }
     @Override
     protected void onDestroy() {

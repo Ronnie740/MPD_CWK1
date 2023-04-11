@@ -18,8 +18,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
-
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -130,7 +128,7 @@ public class table extends AppCompatActivity {
 
         Spinner magnitudeSpinner = findViewById(R.id.magnitude_spinner); // get existing spinner by id
         String[] magnitudeRange = {"Choose","0-2", "2-4", "4-6", "6-8", "8+"};
-        ArrayAdapter<String> magnitudeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, magnitudeRange);
+        ArrayAdapter<String> magnitudeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, magnitudeRange);
         magnitudeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         magnitudeSpinner.setAdapter(magnitudeAdapter);
         applyFilter(magnitudeSpinner,"Magnitude");
@@ -150,7 +148,7 @@ public class table extends AppCompatActivity {
             locationValues[i] = location;
             i++;
         }
-        ArrayAdapter<String> locationAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationValues);
+        ArrayAdapter<String> locationAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, locationValues);
         locationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         locationSpinner.setAdapter(locationAdapter);
         applyFilter(locationSpinner,"Location");
@@ -369,55 +367,59 @@ public class table extends AppCompatActivity {
                 List<Earthquake> filteredEarthquakes = new ArrayList<>();
                 if (!selectedItem.equals("Choose")) {
                     for (Earthquake earthquake : earthquakes) {
-                        if (filterType.equals("Location")) {
-                            if (selectedItem.equals(earthquake.getLocation())) {
-                                filteredEarthquakes.add(earthquake);
-                            }
-                        } else if (filterType.equals("Magnitude")) {
-                            if (selectedItem.equals("0-2")) {
-                                if (earthquake.getMagnitude() >= 0.0 && earthquake.getMagnitude() <= 2.0) {
+                        switch (filterType) {
+                            case "Location":
+                                if (selectedItem.equals(earthquake.getLocation())) {
                                     filteredEarthquakes.add(earthquake);
                                 }
-                            } else if (selectedItem.equals("2-4")) {
-                                if (earthquake.getMagnitude() >= 2.0 && earthquake.getMagnitude() <= 4.0) {
-                                    filteredEarthquakes.add(earthquake);
+                                break;
+                            case "Magnitude":
+                                if (selectedItem.equals("0-2")) {
+                                    if (earthquake.getMagnitude() >= 0.0 && earthquake.getMagnitude() <= 2.0) {
+                                        filteredEarthquakes.add(earthquake);
+                                    }
+                                } else if (selectedItem.equals("2-4")) {
+                                    if (earthquake.getMagnitude() >= 2.0 && earthquake.getMagnitude() <= 4.0) {
+                                        filteredEarthquakes.add(earthquake);
+                                    }
+                                } else if (selectedItem.equals("4-6")) {
+                                    if (earthquake.getMagnitude() > 4.0 && earthquake.getMagnitude() <= 6.0) {
+                                        filteredEarthquakes.add(earthquake);
+                                    }
+                                } else if (selectedItem.equals("6-8")) {
+                                    if (earthquake.getMagnitude() > 6.0 && earthquake.getMagnitude() <= 8.0) {
+                                        filteredEarthquakes.add(earthquake);
+                                    }
+                                } else if (selectedItem.equals("8+")) {
+                                    if (earthquake.getMagnitude() > 8.0) {
+                                        filteredEarthquakes.add(earthquake);
+                                    }
                                 }
-                            } else if (selectedItem.equals("4-6")) {
-                                if (earthquake.getMagnitude() > 4.0 && earthquake.getMagnitude() <= 6.0) {
-                                    filteredEarthquakes.add(earthquake);
+                                break;
+                            case "Depth":
+                                int loopDepth = Integer.parseInt(earthquake.getDepth());
+                                if (selectedItem.equals("0-100")) {
+                                    if (loopDepth >= 0 && loopDepth <= 100) {
+                                        filteredEarthquakes.add(earthquake);
+                                    }
+                                } else if (selectedItem.equals("100-200")) {
+                                    if (loopDepth > 100 && loopDepth <= 200) {
+                                        filteredEarthquakes.add(earthquake);
+                                    }
+                                } else if (selectedItem.equals("200-400")) {
+                                    if (loopDepth > 200 && loopDepth <= 400) {
+                                        filteredEarthquakes.add(earthquake);
+                                    }
+                                } else if (selectedItem.equals("400-600")) {
+                                    if (loopDepth > 400 && loopDepth <= 600) {
+                                        filteredEarthquakes.add(earthquake);
+                                    }
+                                } else if (selectedItem.equals("600+")) {
+                                    if (loopDepth > 600) {
+                                        filteredEarthquakes.add(earthquake);
+                                    }
                                 }
-                            } else if (selectedItem.equals("6-8")) {
-                                if (earthquake.getMagnitude() > 6.0 && earthquake.getMagnitude() <= 8.0) {
-                                    filteredEarthquakes.add(earthquake);
-                                }
-                            } else if (selectedItem.equals("8+")) {
-                                if (earthquake.getMagnitude() > 8.0) {
-                                    filteredEarthquakes.add(earthquake);
-                                }
-                            }
-                        } else if (filterType.equals("Depth")) {
-                            int loopDepth = Integer.parseInt(earthquake.getDepth());
-                            if (selectedItem.equals("0-100")) {
-                                if (loopDepth >= 0 && loopDepth <= 100) {
-                                    filteredEarthquakes.add(earthquake);
-                                }
-                            } else if (selectedItem.equals("100-200")) {
-                                if (loopDepth > 100 && loopDepth <= 200) {
-                                    filteredEarthquakes.add(earthquake);
-                                }
-                            } else if (selectedItem.equals("200-400")) {
-                                if (loopDepth > 200 && loopDepth <= 400) {
-                                    filteredEarthquakes.add(earthquake);
-                                }
-                            } else if (selectedItem.equals("400-600")) {
-                                if (loopDepth > 400 && loopDepth <= 600) {
-                                    filteredEarthquakes.add(earthquake);
-                                }
-                            } else if (selectedItem.equals("600+")) {
-                                if (loopDepth > 600) {
-                                    filteredEarthquakes.add(earthquake);
-                                }
-                            }
+                                break;
                         }
                     }
                     updateTableLayout(filteredEarthquakes);
