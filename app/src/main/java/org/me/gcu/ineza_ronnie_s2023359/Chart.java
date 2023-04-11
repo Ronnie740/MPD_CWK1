@@ -32,11 +32,6 @@ public class Chart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
-
-
-        ArrayList<LegendEntry> legendEntries = new ArrayList<>();
-
-
         // Get a reference to the ScatterChart defined in the XML layout file
         mScatterChart = findViewById(R.id.chart);
 
@@ -83,26 +78,6 @@ public class Chart extends AppCompatActivity {
         }
         dataSet.setColors(colors);
 
-        // Create a legend for the chart
-        /**Legend legend = mScatterChart.getLegend();
-        legend.setFormSize(12f);
-        legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-        legend.setDrawInside(false);
-        legend.setXEntrySpace(10f);
-        legend.setYEntrySpace(10f);
-        legend.setYOffset(0f);
-
-        // Add legend entries for each earthquake
-        for (int i = 0; i < 5; i++) {
-            legendEntries.add(new LegendEntry("Earthquake " + (i+1), Legend.LegendForm.CIRCLE, 12f, 12f, null, colors.get(i)));
-        }
-
-        legend.setCustom(legendEntries);**/
-
-
         dataSet.setScatterShape(ScatterChart.ScatterShape.CIRCLE);
         dataSet.setScatterShapeSize(40f); // Set point size to be 20f
         dataSet.setDrawValues(false);
@@ -123,7 +98,7 @@ public class Chart extends AppCompatActivity {
         mScatterChart.getAxisLeft().setLabelCount((int) maxDepth + 1);
 
         // Refresh the ScatterChart
-        //mScatterChart.invalidate();
+        mScatterChart.invalidate();
     }
     @Override
     public void onBackPressed() {
