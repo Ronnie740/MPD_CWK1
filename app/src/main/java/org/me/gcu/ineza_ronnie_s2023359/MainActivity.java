@@ -55,10 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         if (!isConnected) {
             Toast.makeText(this, "No internet connection available\n Can't Download XML Data", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Connected to internet", Toast.LENGTH_SHORT).show();
         }
-
 
         Log.e("MyTag", "in onCreate");
         startButton = findViewById(R.id.startButton);
