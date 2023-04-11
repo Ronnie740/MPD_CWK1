@@ -4,7 +4,6 @@ package org.me.gcu.ineza_ronnie_s2023359;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.maps.GoogleMap;
@@ -86,7 +85,6 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
         // Create an intent to start the MainActivity
         Intent intent = new Intent(this, MainActivity.class);
         // Set the flag to clear the activity stack and start a new task

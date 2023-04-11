@@ -154,11 +154,7 @@ public class table extends AppCompatActivity {
         locationSpinner.setAdapter(locationAdapter);
         applyFilter(locationSpinner,"Location");
 
-        //filterRow.addView(locationEditText);
-
         // Date filter button to display calendar popup
-
-        //filterRow.addView(dateButton);
         Spinner depthSpinner = findViewById(R.id.depth_spinner); // get existing spinner by id
         String[] depthRange = {"Choose","0-100", "100-200", "200-400", "400-600","600+"};
         ArrayAdapter<String> depthAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, depthRange);
