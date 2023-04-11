@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- MPD XML Starter code Semester B Session 2022 2023 -->
+<!--S2023359_Ronnie_Ineza-->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent" android:layout_height="fill_parent">
     <LinearLayout
         android:orientation="vertical"
@@ -19,8 +17,6 @@
             android:textSize="20sp"
             android:gravity="center_vertical|center"
             android:layout_marginBottom="16dp"/>
-        <!--android:textAlignment="center"-->
-
 
         <Button
             android:id="@+id/startButton"
